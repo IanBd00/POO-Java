@@ -3,7 +3,8 @@
  */
 
 package com.mycompany.creditoedebito;
-
+//import java.util.Scanner;
+import javax.swing.JOptionPane;
 /**
  *
  * @author alunolab13
@@ -11,19 +12,30 @@ package com.mycompany.creditoedebito;
 public class Principal {
 
     public static void main(String[] args) {
-        Conta c1 = new Conta(123,6630,5000);
-        Conta c2 = new Conta();
-        c2.setAgencia(124);
-        c2.setNumero(550);
-        c2.creditar(15000);
-
-        c1.transferir(c2, 4000);
+        Conta[] contas = new Conta[2];
+        int[] agencia = new int[2];
+        int[] numero = new int[2];
+        double[] saldo = new double[2];
+        double[] limite = new double[2];
         
+        for(int i = 0; i < contas.length; i++){
+        agencia[i] = Integer.parseInt(JOptionPane.showInputDialog("Digite a agência da conta " + (i+1) + ":", agencia[i]));
+        numero[i] = Integer.parseInt(JOptionPane.showInputDialog("Digite o número da conta " + (i+1) + ":", numero[i]));
+        saldo[i] = Double.parseDouble(JOptionPane.showInputDialog("Digite o saldo da conta " + (i+1) + ":", saldo[i]));
+        limite[i] = Double.parseDouble(JOptionPane.showInputDialog("Digite o limite da conta " + (i+1) + ":", limite[i]));
         
-        System.out.println("Saldo c1: R$" + c1.getSaldo());
-        System.out.println("Saldo c2: R$" + c2.getSaldo());
+        contas[i] = new Conta(agencia[i], numero[i], saldo[i], limite[i]);
+        }
         
+        double valorCreditar = Double.parseDouble(JOptionPane.showInputDialog("Digite o valor a ser creditado em c1: "));
+        double valorDebitar = Double.parseDouble(JOptionPane.showInputDialog("Digite o valor a ser debitado em c1: "));        
+        double valorTransferir = Double.parseDouble(JOptionPane.showInputDialog("Digite o valor a ser transferido: "));
         
+        contas[0].debitar(valorDebitar);
+        contas[0].creditar(valorCreditar);        
+        contas[0].transferir(contas[1],valorTransferir);
+        
+        JOptionPane.showMessageDialog(null, contas[0].getSaldo());
         
     }
 }
