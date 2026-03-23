@@ -10,7 +10,7 @@ package com.mycompany.contabancaria;
  */
 public class Conta {
     private String numeroConta;
-    double saldo;
+    protected double saldo;
     private Titular titular;
     private Notificador notificador = new Notificador();
     

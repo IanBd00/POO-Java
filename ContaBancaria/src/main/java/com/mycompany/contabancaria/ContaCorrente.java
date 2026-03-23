@@ -11,7 +11,7 @@ package com.mycompany.contabancaria;
 public class ContaCorrente extends Conta {
     private double limite;
     private int diaVencimento;
-    private Conta conta;
+    private static final double TARIFA = 0.01;
 
     public ContaCorrente(String numeroConta, Titular titular, Notificador notificador, double limite) {
         super(numeroConta, titular, notificador);
@@ -31,7 +31,7 @@ public class ContaCorrente extends Conta {
             System.out.println("Valor inserido inválido!");
             return false;
         }
-        if(valor <= limite){
+        if(valor <= saldo + limite){
             System.out.println("Saque realizado com sucesso!");
             saldo -= valor;
             return true;
@@ -41,4 +41,21 @@ public class ContaCorrente extends Conta {
         }
     }
     
+    public void cobrarTarifa(){
+        if(TARIFA <= 0){
+            System.out.println("Tarifa Inválida!");
+        }
+        if(saldo >= TARIFA){
+            System.out.println("Cobrança da tarifa realizada com sucesso!");
+            saldo -= TARIFA;
+        }else{
+            System.out.println("Tarifa incorreta!");
+        }        
+    }
+    
+    @Override
+    public void exibir(){
+        super.exibir();
+        System.out.println("\nLimite: R$" + limite + "\nData de Vencimento: " + diaVencimento);
+    }
 }
